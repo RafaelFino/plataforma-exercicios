@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("cs-string-test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ba6378cd4fd8af04d4352926e8ccdc337d8b5af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8c4269e7e3191e8e304d2d2e6f2a2d830885c474")]
 [assembly: System.Reflection.AssemblyProductAttribute("cs-string-test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("cs-string-test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
