@@ -2,9 +2,9 @@ from datetime import datetime
 import uuid
 
 def create_token() -> str:
-    return (str(uuid.uuid4()) + str(uuid.uuid4()).upper() + str(uuid.uuid4()) + str(uuid.uuid4()).upper()).replace("-", "")
+    return (str(uuid.uuid4()) + str(uuid.uuid4()).upper() + str(uuid.uuid4()) + str(uuid.uuid4()).upper()).replace("-", "") + (str(uuid.uuid4()) + str(uuid.uuid4()).upper() + str(uuid.uuid4()) + str(uuid.uuid4()).upper()).replace("-", "")
 
-qty = 100000
+qty = 5000000
 
 words = []
 pairs = {}
