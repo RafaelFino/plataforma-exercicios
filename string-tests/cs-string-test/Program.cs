@@ -10,6 +10,6 @@ var evals = new List<IEvaluator>
 
 var tester = new PerformanceTester(evals);
 
-tester.Populate(1000, 5000, 256);
+tester.Populate(100, 1000, 256);
 tester.Execute();
 

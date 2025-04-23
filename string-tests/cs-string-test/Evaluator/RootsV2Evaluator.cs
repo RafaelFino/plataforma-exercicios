@@ -50,4 +50,4 @@ namespace cs_string_test.Evaluator
             return true;
         }
     }
-}
+}    
