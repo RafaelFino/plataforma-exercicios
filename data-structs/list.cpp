@@ -84,23 +84,16 @@ class List
         {
             node->SetFirst();            
             _first = node;
-            _last = node;
-        } 
-        else if( _count == 1 )
-        {
-            node->SetPrevious(_first);
-            _first->SetNext(node);
-            _last = node;
         } 
         else
         {
             node->SetPrevious(_last);
-            _last->SetNext(node);
-            _last = node;
+            _last->SetNext(node);            
         }
-
+        
+        _last = node;
         _count++;        
-    }      
+    }
 
     void Remove(int index)
     {        
