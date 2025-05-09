@@ -5,7 +5,8 @@ Este guia vai te ensinar a:
 1. Criar uma conta no GitHub
 2. Acessar o repositório com os exercícios
 3. Criar um Codespace (um ambiente Linux direto no navegador!)
-4. Rodar um script de preparação com um único comando
+4. Instalar o `curl`
+5. Executar o script `prepare.sh`
 
 ---
 
@@ -41,12 +42,13 @@ Este guia vai te ensinar a:
 
 ---
 
-## 🛠️ 4. Executar o script prepare.sh
+## 🔧 4. Instalar o `curl` (caso não esteja instalado)
 
-Agora que o Codespace está pronto, vamos usar o terminal embutido.
-
-1. Quando o Codespace abrir, clique no menu superior em **Terminal > New Terminal** (ou use o atalho `Ctrl + \``)
-2. No terminal, digite este comando e pressione **Enter**:
+1. Quando o Codespace abrir, vá em **Terminal > New Terminal** (ou use o atalho `Ctrl + ``)
+2. No terminal, digite o seguinte comando e pressione Enter:
 
 ```bash
+sudo apt update 
+sudo apt install -y curl
 bash <(curl -s https://raw.githubusercontent.com/RafaelFino/plataforma-exercicios/refs/heads/main/linux-training/prepare.sh)
+
