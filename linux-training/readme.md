@@ -24,7 +24,7 @@
 
 1. Entre com sua conta no GitHub.
 2. Acesse este link:  
-   👉 [https://github.com/RafaelFino/Linux-prepare](https://github.com/RafaelFino/Linux-prepare)
+   👉 [https://github.com/RafaelFino/plataforma-exercicios/tree/main/linux-training](https://github.com/RafaelFino/plataforma-exercicios/tree/main/linux-training)
 
 ---
 
