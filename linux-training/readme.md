@@ -55,5 +55,5 @@ sudo apt install -y curl
 
 ### Instalar um monte de coisas bonitinhas que o Fino fez para deixar seu terminal mais legal e agradável
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/RafaelFino/plataforma-exercicios/refs/heads/main/linux-training/prepare.sh)
+curl -s https://raw.githubusercontent.com/RafaelFino/plataforma-exercicios/refs/heads/main/linux-training/prepare.sh | bash
 ``` 
