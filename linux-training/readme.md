@@ -1,51 +1,52 @@
-# 🧑‍🏫 Guia para os Alunos: Usando GitHub Codespaces com Linux
+# 🐧 Guia passo a passo: Usando GitHub Codespaces para treinar Linux
 
-## ✅ Pré-requisitos
+Este guia vai te ensinar a:
 
-- Ter acesso à internet  
-- Um navegador atualizado (Chrome, Firefox, Edge etc.)
+1. Criar uma conta no GitHub
+2. Acessar o repositório com os exercícios
+3. Criar um Codespace (um ambiente Linux direto no navegador!)
+4. Rodar um script de preparação com um único comando
 
 ---
 
-## 🔹 Passo 1: Criar uma Conta no GitHub
+## 🧾 1. Criar uma conta no GitHub
 
 1. Acesse: [https://github.com](https://github.com)
-2. Clique em **Sign up** (cadastrar).
-3. Preencha os campos:
-   - Nome de usuário
-   - E-mail
-   - Senha
-4. Confirme o e-mail acessando sua caixa de entrada e clicando no link enviado pelo GitHub.
-5. Finalize as configurações iniciais sugeridas (pode pular se preferir).
+2. Clique no botão **Sign up** (ou "Cadastrar-se")
+3. Preencha:
+   - **Username** (nome de usuário)
+   - **Email**
+   - **Senha**
+4. Clique em **Create account**
+5. Confirme o e-mail (verifique sua caixa de entrada)
+6. Finalize o processo seguindo os passos do site (pode pular questionários se quiser)
 
 ---
 
-## 🔹 Passo 2: Acessar o Repositório com os Exercícios
+## 🔗 2. Acessar o repositório de exercícios
 
-1. Entre com sua conta no GitHub.
-2. Acesse este link:  
-   👉 [https://github.com/RafaelFino/plataforma-exercicios/tree/main/linux-training](https://github.com/RafaelFino/plataforma-exercicios/tree/main/linux-training)
-
----
-
-## 🔹 Passo 3: Abrir o Repositório no Codespaces
-
-1. No canto superior direito da página do repositório, clique no botão verde **Code**.
-2. Clique na aba **Codespaces**.
-3. Clique em **Create codespace on main**.
-4. Aguarde alguns minutos até que o ambiente seja criado. Ele abrirá automaticamente com um terminal e editor de arquivos.
-
-> ⚠️ Caso o botão "Codespaces" não apareça, peça aos alunos para habilitarem o Codespaces:
-> - Acesse [https://github.com/codespaces](https://github.com/codespaces)
-> - Clique em “Try Codespaces” ou "Create Codespace" e autorize se necessário
+1. Após fazer login, vá para este link:  
+   👉 [https://github.com/RafaelFino/plataforma-exercicios](https://github.com/RafaelFino/plataforma-exercicios)
 
 ---
 
-## 🔹 Passo 4: Executar o Script de Preparação do Ambiente
+## 💻 3. Criar um Codespace (ambiente Linux no navegador)
 
-Com o terminal já aberto no Codespaces:
+> ⚠️ É necessário que a sua conta seja **gratuita com verificação por e-mail** para usar Codespaces.
 
-1. Rode o seguinte comando no terminal:
+1. Na página do repositório, clique no botão verde **<> Code**
+2. No menu que aparece, clique na aba **Codespaces**
+3. Clique no botão **Create codespace on main**
+4. Espere o ambiente abrir. Ele vai carregar um **VS Code Web**, com terminal, editor de arquivos e tudo!
+
+---
+
+## 🛠️ 4. Executar o script prepare.sh
+
+Agora que o Codespace está pronto, vamos usar o terminal embutido.
+
+1. Quando o Codespace abrir, clique no menu superior em **Terminal > New Terminal** (ou use o atalho `Ctrl + \``)
+2. No terminal, digite este comando e pressione **Enter**:
 
 ```bash
 bash <(curl -s https://raw.githubusercontent.com/RafaelFino/plataforma-exercicios/refs/heads/main/linux-training/prepare.sh)
