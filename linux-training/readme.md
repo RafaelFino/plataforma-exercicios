@@ -48,4 +48,4 @@ Com o terminal já aberto no Codespaces:
 1. Rode o seguinte comando no terminal:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/RafaelFino/Linux-prepare/main/github-workspaces.sh)
+bash <(curl -s https://raw.githubusercontent.com/RafaelFino/plataforma-exercicios/refs/heads/main/linux-training/prepare.sh)
