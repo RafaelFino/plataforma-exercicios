@@ -42,13 +42,18 @@ Este guia vai te ensinar a:
 
 ---
 
-## 🔧 4. Instalar o `curl` (caso não esteja instalado)
+## 🔧 4. Preparar o ambiente
 
+### Instalar o `curl` (caso não esteja instalado)
 1. Quando o Codespace abrir, vá em **Terminal > New Terminal** (ou use o atalho `Ctrl + ``)
 2. No terminal, digite o seguinte comando e pressione Enter:
 
 ```bash
 sudo apt update 
 sudo apt install -y curl
-bash <(curl -s https://raw.githubusercontent.com/RafaelFino/plataforma-exercicios/refs/heads/main/linux-training/prepare.sh)
+``` 
 
+### Instalar um monte de coisas bonitinhas que o Fino fez para deixar seu terminal mais legal e agradável
+```bash
+bash <(curl -s https://raw.githubusercontent.com/RafaelFino/plataforma-exercicios/refs/heads/main/linux-training/prepare.sh)
+``` 
