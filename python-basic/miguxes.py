@@ -2,10 +2,12 @@
 
 word = input("Digite uma palavra: ")
 result = ""
+
 for i in range(0, len(word)):
-    if i % 2 == 0:
-        result += word[i].lower()
+    c = word[i]
+    if i % 2 == 1:
+        result += c.lower()
     else:
-        result += word[i].upper()
+        result += c.upper()
 
 print("A palavra formatada MiGuXêS é:", result)
