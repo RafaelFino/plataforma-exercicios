@@ -13,14 +13,14 @@ Para começar a trabalhar com os exercícios, siga os passos abaixo:
 8. Após completar os exercícios, faça commit das suas alterações e envie-as para o repositório remoto no GitHub.
 
 ## Conteúdo
-- Exercícios de lógica de programação
+- 1. Exercícios de lógica de programação e matemática básica
     1. Números pares e ímpares: Peça para o usuário inserir um número e determine se ele é par ou ímpar.
     2. Calculadora simples: Crie uma calculadora que possa realizar operações básicas como adição, subtração, multiplicação e divisão.
     3. Fatorial: Calcule o fatorial de um número fornecido pelo usuário.
     4. Calculando a média: Peça ao usuário para inserir uma lista de números e calcule a média.
     5. Calcule a potência: Peça ao usuário para inserir uma base e um expoente, e calcule a potência.
 
-- Manipulação de strings
+- 2. Manipulação de strings
     1. Inversão de string: Peça ao usuário para inserir uma string e exiba a string invertida.
     2. Contagem de vogais: Conte o número de vogais em uma string fornecida pelo usuário.
     3. Palíndromo: Verifique se uma string é um palíndromo.
@@ -28,7 +28,7 @@ Para começar a trabalhar com os exercícios, siga os passos abaixo:
     5. Formatação de strings: Formate uma string para exibir um nome completo a partir de nome e sobrenome fornecidos pelo usuário.
     6. Dadas duas palavras, verifique se elas são anagramas uma da outra.
 
-- Manipulação de arquivos
+- 3. Manipulação de arquivos
     1. Leitura de arquivo: Leia o conteúdo de um arquivo de texto e exiba-o na tela.
     2. Escrita em arquivo: Peça ao usuário para inserir texto e salve-o em um arquivo.
     3. Contagem de linhas: Conte o número de linhas em um arquivo de texto.
@@ -41,3 +41,4 @@ Para começar a trabalhar com os exercícios, siga os passos abaixo:
 - Consulte a documentação oficial do Python em [docs.python.org](https://docs.python.org/3/) para obter ajuda sobre funções e bibliotecas.
 - Divirta-se e aproveite o processo de aprendizado!
 - Se não entender algo, PERGUNTE!
+
