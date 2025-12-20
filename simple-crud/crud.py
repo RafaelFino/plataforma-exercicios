@@ -95,3 +95,6 @@ print("\nBuscando pizzas:")
 pizzas_encontradas = Cardapio.buscar_pizza_por_sabor("pep")
 for pizza in pizzas_encontradas:
     print(f"\tSabor: {pizza.Sabor}, Tamanho: {pizza.Tamanho}, Valor: R$ {pizza.Valor:.2f}")       
+
+
+    
