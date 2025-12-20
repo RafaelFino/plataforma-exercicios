@@ -1,6 +1,6 @@
 # Exercício Arrays 7 - Removendo itens
 from array import array
-arr = array('i', [5,6,7,8,9])
+arr = array('i', [5,6,7, 7, 7, 8,9])
 val = int(input("Digite valor a remover: "))
 try:
     arr.remove(val)

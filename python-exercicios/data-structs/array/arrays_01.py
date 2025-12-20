@@ -1,4 +1,8 @@
 # Exercício Arrays 1 - Criando um array de inteiros
-from array import array
-arr = array('i', [int(input(f"Digite inteiro {_+1}: ")) for _ in range(5)])
-print("Array:", arr.tolist())
+arr = []
+
+for i in range(5):
+    n = int(input(f"Digite inteiro {i}: "))
+    arr.append(n)
+            
+print(f"Array:{arr}")
