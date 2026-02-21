@@ -90,15 +90,8 @@ public class ClientController : ControllerBase
     {
         Logger.GetInstance().Log($"[ClientController] Update called. id={id}");
 
-        var client = new Client(
-            clientUpdated.Name,
-            clientUpdated.Email,
-            clientUpdated.BirthDate
-        );
 
-        client.Id = id;
-
-        var updated = _clientService.Update(client);
+        var updated = _clientService.Update(id, clientUpdated);
 
         if (!updated)
         {

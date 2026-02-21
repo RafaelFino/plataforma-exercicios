@@ -85,24 +85,23 @@ namespace CRUD.Storage.SQLite
             }
         }
 
-        public bool Update(Domain.Client client)
+        public bool Update(string id, Domain.UpdateClientRequest client)
         {
             try
             {
-                Logger.GetInstance().Log($"[SQLiteClientStorage] Updating client with ID: {client.Id}");
+                Logger.GetInstance().Log($"[SQLiteClientStorage] Updating client with ID: {id}");
                 var command = _connection.CreateCommand();
                 command.CommandText = @"
-                    UPDATE Clients SET Name = @Name, Email = @Email, IsActive = @IsActive, UpdatedAt = CURRENT_TIMESTAMP WHERE Id = @Id;
+                    UPDATE Clients SET Name = @Name, Email = @Email, UpdatedAt = CURRENT_TIMESTAMP WHERE Id = @Id;
                 ";
-                command.Parameters.AddWithValue("@Id", client.Id);
+                command.Parameters.AddWithValue("@Id", id);
                 command.Parameters.AddWithValue("@Name", client.Name);
                 command.Parameters.AddWithValue("@Email", client.Email);
-                command.Parameters.AddWithValue("@IsActive", client.IsActive ? 1 : 0);
                 var ret = command.ExecuteNonQuery();
 
                 if (ret == 0)
                 {
-                    Logger.GetInstance().Log($"[SQLiteClientStorage] Client with ID {client.Id} not found for update.");
+                    Logger.GetInstance().Log($"[SQLiteClientStorage] Client with ID {id} not found for update.");
                     return false;
                 }
 

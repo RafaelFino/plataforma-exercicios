@@ -49,22 +49,27 @@ namespace CRUD.Storage.InMemory
             return ret;
         }
 
-        public bool Update(Domain.Client client)
+        public bool Update(string id, Domain.UpdateClientRequest client)
         {
             bool ret = false;
             try
             {
                 lock(_lock)
                 {
-                    if (_clients.ContainsKey(client.Id))
+                    if (_clients.ContainsKey(id))
                     {
-                        Logger.GetInstance().Log($"[InMemoryClientStorage] Updating client with ID: {client.Id}");                        
-                        _clients[client.Id] = client;
+                        Logger.GetInstance().Log($"[InMemoryClientStorage] Updating client with ID: {id}");                        
+                        var c = _clients[id];
+                        c.Name = client.Name;
+                        c.Email = client.Email;
+                        c.BirthDate = client.BirthDate;
+                        c.UpdatedAt = DateTime.Now;
+                        _clients[id] = c;
                         ret = true;                    
                     }
                     else 
                     {
-                        Logger.GetInstance().Log($"[InMemoryClientStorage] Client with ID {client.Id} not found for update.");
+                        Logger.GetInstance().Log($"[InMemoryClientStorage] Client with ID {id} not found for update.");
                     }                
                 }
             }

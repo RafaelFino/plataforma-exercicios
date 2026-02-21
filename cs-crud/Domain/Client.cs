@@ -13,11 +13,6 @@ namespace CRUD.Domain
 
         public bool IsActive { get; set; } = isActive;
 
-        public Client(string name, string email, DateTime birthDate) : this(Ulid.NewUlid().ToString(), name, email, birthDate, DateTime.Now, DateTime.Now, true)
-        {
-            
-        }
-
         public string ToJson()
         {
             return System.Text.Json.JsonSerializer.Serialize(this);

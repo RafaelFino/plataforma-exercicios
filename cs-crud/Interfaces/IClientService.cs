@@ -10,7 +10,7 @@ namespace CRUD.Interfaces
 
         string Create(string name, string email, DateTime birthDate);
 
-        bool Update(Domain.Client client);
+        bool Update(string id, Domain.UpdateClientRequest client);
 
         bool Delete(string id);
     }

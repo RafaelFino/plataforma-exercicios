@@ -64,7 +64,15 @@ namespace CRUD.Services
         {
             try
             {
-                var client = new Domain.Client(name, email, birthDate);
+                var client = new Domain.Client(
+                    IDCreator.NewId(), 
+                    name, 
+                    email, 
+                    birthDate, 
+                    DateTime.Now, 
+                    DateTime.Now, 
+                    true);
+
                 Logger.GetInstance().Log($"[ClientService] Creating client: {client.Name} with ID: {client.Id}");
                 var result = _storage.Create(client);
 
@@ -84,12 +92,12 @@ namespace CRUD.Services
             }
         }
 
-        public bool Update(Domain.Client client)
+        public bool Update(string id, Domain.UpdateClientRequest client)
         {
             try
             {
                 Logger.GetInstance().Log($"[ClientService] Updating client: {client.Name}");
-                return _storage.Update(client);
+                return _storage.Update(id, client);
             }
             catch (Exception ex)
             {
