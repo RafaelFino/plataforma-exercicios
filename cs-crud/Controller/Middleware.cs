@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Text.Json;
 using CRUD.Domain;
+using CRUD.Commons;
 
 public class ResponseWrapperMiddleware
 {
@@ -27,13 +28,13 @@ public class ResponseWrapperMiddleware
         responseBody.Seek(0, SeekOrigin.Begin);
         var bodyText = await new StreamReader(responseBody).ReadToEndAsync();
 
-        object data = null;
+        object? data = null;
 
         if (!string.IsNullOrWhiteSpace(bodyText))
         {
             try
             {                
-                data = JsonSerializer.Deserialize<object>(bodyText);
+                data = JsonSerializer.Deserialize<object?>(bodyText);
             }
             catch
             {
@@ -61,5 +62,7 @@ public class ResponseWrapperMiddleware
             });
 
         await context.Response.WriteAsync(json);
+
+        Logger.GetInstance().LogResponse($"[ResponseWrapperMiddleware] Wrapped response in ApiResponse. Success={apiResponse.Success}, StatusCode={context.Response.StatusCode}, ProcessingTimeMs={apiResponse.ProcessingTimeMs}", json); 
     }
 }

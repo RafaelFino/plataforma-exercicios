@@ -94,7 +94,10 @@ namespace CRUD.Storage.InMemory
         }
         public Domain.Client? GetByName(string name) 
         { 
-            var client = _clients.Values.FirstOrDefault(c => c.Name.Trim().Equals(name, StringComparison.OrdinalIgnoreCase));
+            var client = _clients.Values.FirstOrDefault(c => 
+                        !string.IsNullOrWhiteSpace(c.Name) 
+                        && c.Name.Trim().Equals(name, StringComparison.OrdinalIgnoreCase)
+                    );
             if (client == null)
             {
                 Logger.GetInstance().Log($"[InMemoryClientStorage] Client with name {name} not found.");

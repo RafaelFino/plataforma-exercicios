@@ -11,6 +11,8 @@ namespace CRUD.Commons
         public DateTime Timestamp { get; set; }
         public string Message { get; set; }
 
+        public string? Response {get; set;}
+
         public LogItem(string message)
         {
             Timestamp = DateTime.Now;
@@ -19,7 +21,7 @@ namespace CRUD.Commons
 
         public override string ToString()
         {
-            return $"[{Timestamp}] {Message}";
+            return $"[{Timestamp}] {Message} {Response}";
         }
     }
     public class Logger
@@ -45,6 +47,11 @@ namespace CRUD.Commons
                             Console.Write($"[{message.Timestamp:yyyy-MM-dd HH:mm:ss}]");
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine(message.Message);
+                            if(!string.IsNullOrEmpty(message.Response))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(message.Response);
+                            }
                             Console.ResetColor();
                         }
                     }
@@ -75,6 +82,15 @@ namespace CRUD.Commons
         public void Log(string message, Exception exception)
         {
             _logItems.Enqueue(new LogItem($"{message} - Exception: {exception.Message}"));            
+        }
+
+        public void LogResponse(string message, string response)
+        {
+            var item = new LogItem(message)
+            {
+                Response = response
+            };
+            _logItems.Enqueue(item); 
         }
     }
 }
