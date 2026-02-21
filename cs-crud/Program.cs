@@ -1,6 +1,7 @@
 using CRUD.Interfaces;
 using CRUD.Services;
 using CRUD.Storage;
+using CRUD.Commons;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,3 +26,5 @@ app.UseExceptionHandler("/error");
 app.UseMiddleware<ResponseWrapperMiddleware>();
 
 app.Run();
+
+Logger.GetInstance().Stop();
