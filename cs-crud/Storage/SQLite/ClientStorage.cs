@@ -18,6 +18,7 @@ namespace CRUD.Storage.SQLite
                     Id TEXT PRIMARY KEY,
                     Name TEXT NOT NULL,
                     Email TEXT NOT NULL,
+                    BirthDate TEXT NOT NULL,
                     IsActive INTEGER NOT NULL,
                     CreatedAt TEXT DEFAULT CURRENT_TIMESTAMP,
                     UpdatedAt TEXT DEFAULT CURRENT_TIMESTAMP
@@ -33,11 +34,12 @@ namespace CRUD.Storage.SQLite
                 Logger.GetInstance().Log($"[SQLiteClientStorage] Creating client with ID: {client.Id}");
                 var command = _connection.CreateCommand();
                 command.CommandText = @"
-                    INSERT INTO Clients (Id, Name, Email, IsActive) VALUES (@Id, @Name, @Email, @IsActive);
+                    INSERT INTO Clients (Id, Name, Email, BirthDate, IsActive) VALUES (@Id, @Name, @Email, @BirthDate, @IsActive);
                 ";
                 command.Parameters.AddWithValue("@Id", client.Id);
                 command.Parameters.AddWithValue("@Name", client.Name);
                 command.Parameters.AddWithValue("@Email", client.Email);
+                command.Parameters.AddWithValue("@BirthDate", client.BirthDate.ToString("yyyy-MM-dd"));
                 command.Parameters.AddWithValue("@IsActive", client.IsActive ? 1 : 0);
                 var ret = command.ExecuteNonQuery();                
 
@@ -154,7 +156,7 @@ namespace CRUD.Storage.SQLite
                 Logger.GetInstance().Log($"[SQLiteClientStorage] Fetching client by ID: {id}");
                 var command = _connection.CreateCommand();
                 command.CommandText = @"
-                    SELECT Id, Name, Email, BirthDate, CreatedAt, UpdatedAt, IsActive FROM Clients WHERE Id = @Id;";
+                    SELECT Id, Name, Email, BirthDate, CreatedAt, UpdatedAt, IsActive FROM Clients WHERE Id = @Id AND IsActive = 1;";
                 command.Parameters.AddWithValue("@Id", id);
                 
                 var result = command.ExecuteReader();
@@ -191,7 +193,7 @@ namespace CRUD.Storage.SQLite
                 Logger.GetInstance().Log($"[SQLiteClientStorage] Fetching client by name: {name}");
                 var command = _connection.CreateCommand();
                 command.CommandText = @"
-                    SELECT Id, Name, Email, BirthDate, CreatedAt, UpdatedAt, IsActive FROM Clients WHERE Name = @Name;";
+                    SELECT Id, Name, Email, BirthDate, CreatedAt, UpdatedAt, IsActive FROM Clients WHERE Name = @Name AND IsActive = 1;";
                 command.Parameters.AddWithValue("@Name", name);
                 
                 var result = command.ExecuteReader();
@@ -247,6 +249,13 @@ namespace CRUD.Storage.SQLite
                             {
                                 whereClauses.Add("DATE(BirthDate) = DATE(@BirthDate)");
                                 command.Parameters.AddWithValue("@BirthDate", birthDate.ToString("yyyy-MM-dd"));    
+                            }
+                            break;
+                        case "active":
+                            if (bool.TryParse(filter.Value, out var isActive))
+                            {
+                                whereClauses.Add("IsActive = @IsActive");
+                                command.Parameters.AddWithValue("@IsActive", isActive ? 1 : 0);    
                             }
                             break;
                         

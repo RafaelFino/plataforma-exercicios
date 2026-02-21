@@ -1,11 +1,15 @@
 #!/bin/bash
 
 BASE="http://localhost:5218/api/client"
-
-echo "## Start..."
-
+FAILURES=0
 IDS=()
 
+echo "====================================="
+echo "## API Integration Test Started"
+echo "====================================="
+
+########################################
+echo ""
 echo ">> Creating 10 users..."
 
 for i in {1..10}
@@ -19,66 +23,112 @@ do
     -F "email=$EMAIL" \
     -F "birthDate=$BIRTHDATE")
 
-  echo "<< Created ID: $RESPONSE"
-  IDS+=($RESPONSE)
+  echo "$RESPONSE" | jq .
+
+  SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
+  ID=$(echo "$RESPONSE" | jq -r '.data.id')
+
+  if [ "$SUCCESS" = "true" ] && [ "$ID" != "null" ]; then
+    IDS+=("$ID")
+  else
+    ((FAILURES++))
+  fi
 done
 
+########################################
 echo ""
-echo ">> Get All (formatted)..."
-curl -s $BASE | jq .
-echo ""
+echo ">> Get All..."
 
+RESPONSE=$(curl -s $BASE)
+echo "$RESPONSE" | jq .
+
+SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
+if [ "$SUCCESS" != "true" ]; then
+  ((FAILURES++))
+fi
+
+########################################
 echo ""
-echo ">> Get By ID (after create)..."
+echo ">> Get By ID..."
+
 for ID in "${IDS[@]}"
 do
-  echo "<< Getting: $ID"
-  curl -s $BASE/$ID | jq .
-  echo ""
+  RESPONSE=$(curl -s $BASE/$ID)
+  echo "$RESPONSE" | jq .
+
+  SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
+
+  if [ "$SUCCESS" != "true" ]; then
+    ((FAILURES++))
+  fi
 done
 
+########################################
 echo ""
 echo ">> Updating..."
 
 for ID in "${IDS[@]}"
 do
-  curl -s -X PUT $BASE/$ID \
+  RESPONSE=$(curl -s -X PUT $BASE/$ID \
     -H "Content-Type: application/json" \
     -d "{
-      \"id\": \"$ID\",
       \"name\": \"Updated_$RANDOM\",
       \"email\": \"updated_$RANDOM@test.com\",
-      \"birthDate\": \"1991-02-02T00:00:00\"
-    }" | jq .
+      \"birthDate\": \"1991-02-02\"
+    }")
 
-  echo "<< Updated: $ID"
+  echo "$RESPONSE" | jq .
+
+  SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
+
+  if [ "$SUCCESS" != "true" ]; then
+    ((FAILURES++))
+  fi
 done
 
+########################################
 echo ""
-echo ">> Get By ID (after update)..."
+echo ">> Deleting..."
+
 for ID in "${IDS[@]}"
 do
-  echo "<< Checking update: $ID"
-  curl -s $BASE/$ID | jq .
-  echo ""
+  RESPONSE=$(curl -s -X DELETE $BASE/$ID)
+
+  echo "$RESPONSE" | jq .
+
+  SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
+
+  if [ "$SUCCESS" != "true" ]; then
+    ((FAILURES++))
+  fi
 done
 
+########################################
 echo ""
-echo ">> Delete..."
+echo ">> Validate deletion (expect success=false)..."
 
 for ID in "${IDS[@]}"
 do
-  curl -s -X DELETE $BASE/$ID
-  echo "<< Removed: $ID"
+  RESPONSE=$(curl -s $BASE/$ID)
+  echo "$RESPONSE" | jq .
+
+  SUCCESS=$(echo "$RESPONSE" | jq -r '.success')
+
+  if [ "$SUCCESS" != "false" ]; then
+    ((FAILURES++))
+  fi
 done
 
+########################################
 echo ""
-echo ">> Get By ID (after delete - expect 404)..."
-for ID in "${IDS[@]}"
-do
-  echo -n "<< Checking removal $ID -> HTTP: "
-  curl -s -o /dev/null -w "%{http_code}\n" $BASE/$ID
-done
+echo "====================================="
+echo "## Test Finished"
+echo "Failures: $FAILURES"
 
-echo ""
-echo "## Finish."
+if [ $FAILURES -eq 0 ]; then
+  echo "✅ ALL TESTS PASSED"
+else
+  echo "❌ SOME TESTS FAILED"
+fi
+
+echo "====================================="

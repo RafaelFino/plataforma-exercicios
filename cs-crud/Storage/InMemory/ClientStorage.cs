@@ -33,19 +33,17 @@ namespace CRUD.Storage.InMemory
         public bool Delete(string id)
         {
             bool ret = false;
-            if (_clients.ContainsKey(id))
+            lock(_lock)
             {
-                Logger.GetInstance().Log($"[InMemoryClientStorage] Deleting client with ID: {id}");  
-
-                lock(_lock)
+                if (_clients.ContainsKey(id))
                 {
-                    ret = _clients.Remove(id);
+                    Logger.GetInstance().Log($"[InMemoryClientStorage] Deleting client with ID: {id}");                  
+                    ret = _clients.Remove(id);                
                 }
-            }
-            else
-            {
-                Logger.GetInstance().Log($"[InMemoryClientStorage] Client with ID {id} not found for deletion.");
-                throw new KeyNotFoundException($"Client with ID {id} not found for deletion.");
+                else
+                {
+                    Logger.GetInstance().Log($"[InMemoryClientStorage] Client with ID {id} not found for deletion.");
+                }
             }
 
             return ret;
@@ -56,19 +54,19 @@ namespace CRUD.Storage.InMemory
             bool ret = false;
             try
             {
-                if (_clients.ContainsKey(client.Id))
+                lock(_lock)
                 {
-                    Logger.GetInstance().Log($"[InMemoryClientStorage] Updating client with ID: {client.Id}");
-                    lock(_lock)
+                    if (_clients.ContainsKey(client.Id))
                     {
+                        Logger.GetInstance().Log($"[InMemoryClientStorage] Updating client with ID: {client.Id}");                        
                         _clients[client.Id] = client;
-                        ret = true;
+                        ret = true;                    
                     }
+                    else 
+                    {
+                        Logger.GetInstance().Log($"[InMemoryClientStorage] Client with ID {client.Id} not found for update.");
+                    }                
                 }
-                else 
-                {
-                    Logger.GetInstance().Log($"[InMemoryClientStorage] Client with ID {client.Id} not found for update.");
-                }                
             }
             catch (Exception ex)
             {

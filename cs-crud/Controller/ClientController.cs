@@ -4,7 +4,6 @@ using CRUD.Domain;
 using CRUD.Commons;
 using CRUD.Services;
 
-
 namespace CRUD.Controllers;
 
 [ApiController]
@@ -30,7 +29,7 @@ public class ClientController : ControllerBase
         return Ok(clients);
     }
 
-    // GET: api/client/filtered?name=John&email=test@email.com
+    // GET: api/client/filtered?name=John
     [HttpGet("filtered")]
     public IActionResult GetFiltered()
     {
@@ -57,7 +56,7 @@ public class ClientController : ControllerBase
         if (client == null)
         {
             Logger.GetInstance().Log($"[ClientController] Client not found. id={id}");
-            return NotFound();
+            return NotFound(new { id });
         }
 
         return Ok(client);
@@ -72,43 +71,44 @@ public class ClientController : ControllerBase
     {
         Logger.GetInstance().Log($"[ClientController] Create called. name={name}, email={email}");
 
-        try
-        {
-            var id = _clientService.Create(name, email, birthDate);
+        var id = _clientService.Create(name, email, birthDate);
 
-            Logger.GetInstance().Log($"[ClientController] Client created successfully. id={id}");
-
-            return CreatedAtAction(nameof(GetById), new { id }, id);
-        }
-        catch (Exception ex)
+        if (string.IsNullOrEmpty(id))
         {
-            Logger.GetInstance().Log($"[ClientController] Error creating client. {ex.Message}");
-            return BadRequest(ex.Message);
+            Logger.GetInstance().Log("[ClientController] Failed to create client.");
+            return BadRequest(new { name, email });
         }
+
+        Logger.GetInstance().Log($"[ClientController] Client created successfully. id={id}");
+
+        return CreatedAtAction(nameof(GetById), new { id }, new { id });
     }
 
-    // PUT: api/client
-    [HttpPut]
-    public IActionResult Update([FromBody] UpdateClientRequest clientUpdated)
+    // PUT: api/client/{id}
+    [HttpPut("{id}")]
+    public IActionResult Update(string id, [FromBody] UpdateClientRequest clientUpdated)
     {
-        Logger.GetInstance().Log($"[ClientController] Update called. id={clientUpdated.Id}");
+        Logger.GetInstance().Log($"[ClientController] Update called. id={id}");
 
         var client = new Client(
             clientUpdated.Name,
             clientUpdated.Email,
             clientUpdated.BirthDate
-        );        
+        );
+
+        client.Id = id;
 
         var updated = _clientService.Update(client);
 
         if (!updated)
         {
-            Logger.GetInstance().Log($"[ClientController] Client not found for update. id={client.Id}");
-            return NotFound();
+            Logger.GetInstance().Log($"[ClientController] Client not found for update. id={id}");
+            return NotFound(new { id });
         }
 
-        Logger.GetInstance().Log($"[ClientController] Client updated successfully. id={client.Id}");
-        return NoContent();
+        Logger.GetInstance().Log($"[ClientController] Client updated successfully. id={id}");
+
+        return Ok(new { id });
     }
 
     // DELETE: api/client/{id}
@@ -122,10 +122,11 @@ public class ClientController : ControllerBase
         if (!deleted)
         {
             Logger.GetInstance().Log($"[ClientController] Client not found for deletion. id={id}");
-            return NotFound();
+            return NotFound(new { id });
         }
 
         Logger.GetInstance().Log($"[ClientController] Client deleted successfully. id={id}");
-        return NoContent();
+
+        return Ok(new { id });
     }
 }

@@ -9,7 +9,7 @@ namespace CRUD.Storage
     {
         InMemory,
         SQLite
-    }
+    }    
     public class ClientStorageFactory
     {
         public static Interfaces.IClientStorage Create(StorageType type)

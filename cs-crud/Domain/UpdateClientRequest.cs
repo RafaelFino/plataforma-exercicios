@@ -1,8 +1,9 @@
-namespace CRUD.Domain;
-public class UpdateClientRequest
+namespace CRUD.Domain
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public DateTime BirthDate { get; set; }
+    public class UpdateClientRequest
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public DateTime BirthDate { get; set; }
+    }
 }
